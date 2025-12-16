@@ -1,0 +1,5 @@
+(require 'clojure.string)
+(clojure.string/upper-case "ok")
+lein test
+lein run
+(exit)
