@@ -3,3 +3,7 @@
 lein test
 lein run
 (exit)
+(def games (load-or-download-games!))
+(def games (rawg/load-json games-file))
+(count games)
+(first games)
