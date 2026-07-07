@@ -15,6 +15,8 @@
    :horror
    :puzzle-solving])
 
+;; AI koriscen za upotpunjavanje preskocenih tagova i deskripcija jer su manuelno sakupljane
+;; AI koriscen kroz odredjene iteracije, kako bi se ustavršile tezine, kombinovano sa manuelnim procenama
 (def genre->weights
   {"role-playing-games-rpg" {:narrative 23 :exploration 19 :strategy 11 :immersion 17}
    "adventure"              {:narrative 14 :exploration 27 :immersion 13 :puzzle-solving 9}
@@ -181,7 +183,7 @@
       (:description game)
       ""))
 
-
+;; AI koriscen za normalizaciju teksta
 (defn clean-description [text]
   (-> (or text "")
       (str/replace #"<[^>]+>" " ")
@@ -215,6 +217,7 @@
     (>= hours 15) {:exploration 4 :immersion 5}
     :else {}))
 
+;; AI koriscen za poboljsanje strukture funkcije
 (defn build-motivations [game]
   (let [genres (get-genres game)
         tags (get-tags game)

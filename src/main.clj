@@ -51,6 +51,9 @@
            (println "why:" (:why g))
            (println)))))))
 
+;;AI koriscen kako bi se rešio problem zastarelog json kroz različite iteracije koda.
+;;Prommena težina i načina računjana vrednosti dovodi do neophodnosti za novim veliki API pozivom
+;;ograničenost kreditia zahteva korekcije na već postojecem fajlu
 (defn recalculate-game [game]
   (assoc game
     :genres (features/get-genres game)

@@ -1,7 +1,7 @@
 (ns users-test
   (:require [midje.sweet :refer :all]
             [users :as users]))
-
+;; AI koriscen za generisanje igrica
 (def games
   [{:id 1
     :name "The Witcher 3: Wild Hunt"

@@ -6,6 +6,7 @@
             [recommender :as recommender]))
 (def profiles-file "user-profiles.json")
 
+;;AI za idejnu bazu pitanja
 (def questions
   [{:key :narrative      :text "Story and characters"}
    {:key :exploration    :text "Freedom, discovery, open areas"}
@@ -65,6 +66,7 @@
        (remove str/blank?)
        set))
 
+;;AI koriscen za nalazenje Jaccard slicnosti koja se koristi za poredjenje preseka skupva reci
 (defn title-similarity-score [a b]
   (let [wa (title-words a)
         wb (title-words b)
@@ -74,6 +76,7 @@
       (/ (double (count (set/intersection wa wb)))
          (double (count all-words))))))
 
+;;AI radi organizcije toka pretrage, tačno - delimicno - jaccard
 (defn find-best-game [games title]
   (let [query (normalize-name title)
         exact-match
@@ -98,17 +101,6 @@
              (sort-by (juxt (comp - :match) :name))
              first))))
 
-(defn suggest-games [games title]
-  (let [query (normalize-name title)]
-    (->> games
-         (map (fn [game]
-                (assoc game :match
-                            (title-similarity-score query
-                                                    (game-search-text game)))))
-         (filter #(>= (:match %) 0.20))
-         (sort-by (juxt (comp - :match) :name))
-         (take 5)
-         (map :name))))
 
 (defn resolve-liked-games [games titles]
   (->> titles
@@ -119,9 +111,6 @@
                   game)
                 (do
                   (println "No match for:" title)
-                  (let [suggestions (suggest-games games title)]
-                    (when (seq suggestions)
-                      (println "Closest matches:" suggestions)))
                   nil))))
        (remove nil?)
        (reduce (fn [acc game]
@@ -157,7 +146,7 @@
   (print "Type a few games you already like, separated by commas (or leave blank): ")
   (flush)
   (let [titles (split-comma (read-line))]
-    (users/resolve-liked-games games titles)))
+    (resolve-liked-games games titles)))
 
 (defn ask-number-or-blank [prompt parser valid?]
   (loop []
@@ -198,6 +187,7 @@
           (println "Please answer y or n.")
           (recur))))))
 
+;; AI kao ideja za hard filtere
 (defn ask-filters []
   (println "\nFilters. Leave blank to skip.")
   {:min-rating
@@ -266,21 +256,12 @@
         (save-profile! profile)))))
 
 (defn search-games! [games title]
-  (println "\nSearch results for:" title)
+  (println "\nSearch result for:" title)
 
-  (let [best-match (find-best-game games title)
-        suggestions (suggest-games games title)]
-
-    (if best-match
-      (do
-        (println "\nBest match:")
-        (println (:name best-match)
-                 "| rating:" (:rating best-match)
-                 "| released:" (:released best-match)))
-
-      (println "\nNo exact/best match found."))
-
-    (when (seq suggestions)
-      (println "\nClosest matches:")
-      (doseq [name suggestions]
-        (println "-" name)))))
+  (if-let [game (find-best-game games title)]
+    (do
+      (println "\nBest match:")
+      (println (:name game)
+               "| rating:" (:rating game)
+               "| released:" (:released game)))
+    (println "\nNo match found.")))

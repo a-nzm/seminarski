@@ -17,6 +17,7 @@
   (not (empty? (set/intersection (set (or a #{}))
                                  (set (or b #{}))))))
 
+;; AI korišćen za pronalazenje i implementaciju JACCARD slicnosti kao efikasnog algoritma
 (defn set-similarity [a b]
   (let [a (set (or a #{}))
         b (set (or b #{}))
@@ -57,6 +58,7 @@
 (defn answer->target [answer]
   (* 10.0 (double answer)))
 
+;;AI koriscen kroz iteracije kako bi se usvrsile slobodne numericke vrednosti
 (defn answer->importance [answer]
   (let [a (double answer)
         e (Math/abs (- a 5.0))
@@ -65,6 +67,7 @@
       (+ base 0.10)
       base)))
 
+;;AI koriscen kroz iteracije kako bi se usvrsile slobodne numericke vrednosti
 (defn answer->tolerance [answer]
   (let [a (double answer)
         e (Math/abs (- a 5.0))
@@ -100,6 +103,8 @@
     (> value high) (- value high)
     :else 0.0))
 
+;;AI koriscen za procenu tolerancije od tačne ciljane vrednosti
+;;Vrednosti za značaj razlicitih odgovora, kalkulacije u razlicitim slucajevima
 (defn dimension-match-score [answer target importance tolerance game-value]
   (let [gv      (double game-value)
         low     (max 0.0 (- target tolerance))
@@ -118,8 +123,8 @@
   (for [k features/motivation-keys
         :let [answer     (double (get-in user [:answers k] 5.0))
               target     (double (get-in user [:targets k] 50.0))
-              importance (double (get-in user [:importance k] 0.10))
-              tolerance  (double (get-in user [:tolerance k] 46.0))
+              importance (double (get-in user [:importance k] 0.12))
+              tolerance  (double (get-in user [:tolerance k] 44.0))
               game-value (double (get-in game [:motivations k] 0.0))
               match      (dimension-match-score answer target importance tolerance game-value)
               weight     (+ 0.18 importance)]]
@@ -190,7 +195,7 @@
   (and (passes-filters? user game)
        (not (violates-avoid? user game))))
 
-
+;;AI koriscen za dolazenje do balansa izmedju faktora koji se porede
 (defn score-game [user game]
   (let [motivation-score (motivation-match-score user game)
         genre-score      (* 100.0 (set-similarity (:liked-genres user) (:genres game)))
@@ -209,6 +214,7 @@
        " vs target "
        (int (Math/round target))))
 
+;;AI koriscen za format objasnjenja igre
 (defn explain-game [user game]
   (let [rows (dimension-rows user game)
         best-dimensions (->> rows

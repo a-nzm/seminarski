@@ -12,6 +12,7 @@
   (fn [actual]
     (< (Math/abs (- (double actual) (double expected))) 0.0001)))
 
+;;AI koriscen za generisanje igara i korisnika
 (def liked-game-1
   {:id 1
    :name "Fast Quest"
@@ -124,7 +125,7 @@
        (r/set-similarity #{"horror"}
                          #{"horror"})
        => 1.0)
-
+;;AI koriscen za racunaje odgovora
 (facts "0 to 10 - recommendation values"
        (r/answer->target 8) => 80.0
        (r/answer->target 5) => 50.0

@@ -282,5 +282,76 @@
       "action" : 0.7
     },
     "liked-genres" : [ "platformer", "strategy", "indie", "action", "arcade" ]
+  },
+  "ksenija" : {
+    "liked-tags" : [ "steam trading cards", "great soundtrack", "steam achievements", "online co-op", "open world", "rpg", "role playing game", "3d", "multiplayer", "co-op", "singleplayer", "fantasy" ],
+    "filters" : {
+      "min-rating" : 0.0,
+      "min-metacritic" : 0,
+      "release-year-from" : 1975,
+      "exclude-early-access?" : false
+    },
+    "name" : "ksenija",
+    "tolerance" : {
+      "competition" : 14.0,
+      "relaxation" : 33.5,
+      "exploration" : 24.5,
+      "horror" : 44.0,
+      "social" : 20.5,
+      "immersion" : 18.0,
+      "creativity" : 27.0,
+      "narrative" : 18.0,
+      "strategy" : 37.5,
+      "puzzle-solving" : 44.0,
+      "challenge" : 37.5,
+      "action" : 33.5
+    },
+    "targets" : {
+      "competition" : 8.6,
+      "relaxation" : 31.483333333333334,
+      "exploration" : 77.55,
+      "horror" : 32.5,
+      "social" : 28.866666666666667,
+      "immersion" : 86.15,
+      "creativity" : 21.6,
+      "narrative" : 77.05,
+      "strategy" : 48.916666666666664,
+      "puzzle-solving" : 36.0,
+      "challenge" : 49.85,
+      "action" : 37.9
+    },
+    "liked-game-ids" : [ 326243, 401805, 324997 ],
+    "answers" : {
+      "competition" : 1,
+      "relaxation" : 4,
+      "exploration" : 8,
+      "horror" : 5,
+      "social" : 2,
+      "immersion" : 9,
+      "creativity" : 3,
+      "narrative" : 9,
+      "strategy" : 6,
+      "puzzle-solving" : 5,
+      "challenge" : 6,
+      "action" : 4
+    },
+    "liked-games" : [ "Elden Ring", "Baldur's Gate III", "Genshin Impact" ],
+    "avoid-tags" : [ ],
+    "avoid-genres" : [ ],
+    "importance" : {
+      "competition" : 0.86,
+      "relaxation" : 0.38,
+      "exploration" : 0.6,
+      "horror" : 0.12,
+      "social" : 0.7,
+      "immersion" : 0.76,
+      "creativity" : 0.54,
+      "narrative" : 0.76,
+      "strategy" : 0.28,
+      "puzzle-solving" : 0.12,
+      "challenge" : 0.28,
+      "action" : 0.38
+    },
+    "liked-genres" : [ "strategy", "adventure", "action", "role-playing-games-rpg" ]
   }
 }

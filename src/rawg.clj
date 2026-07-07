@@ -7,6 +7,7 @@
 (def default-page-size 40)
 (def max-detail-calls 9000)
 
+;; AI koriscen za nalazenje razlicitih tipova imenovanja dlc i dodataka
 (def dlc-name-pattern
   #"(?i)\b(dlc|expansion|add-?on|season pass|soundtrack|demo|beta|alpha|test server|starter pack|cosmetic pack)\b")
 
@@ -49,6 +50,7 @@
     (and (not (re-find dlc-name-pattern name))
          (not (re-find dlc-description-pattern description)))))
 
+;; AI koriscen za bolju strukturu i nosenje sa mogucim null vrednostima
 (defn add-details [api-key game-summary]
   (try
     (let [details (get-game-details api-key (:id game-summary))
@@ -67,6 +69,8 @@
        vals
        vec))
 
+;;AI koriscen za ideju preuzimanja igrica, ne samo najpopularnijih vec i top rated i vremena dodavanja
+;;AI korsicen za max detail calls jer se prekoracenje kredita desilo zbog lose racunice stranica
 (defn download-games
   ([api-key pages]
    (download-games api-key pages default-page-size))
